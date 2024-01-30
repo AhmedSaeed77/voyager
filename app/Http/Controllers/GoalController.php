@@ -29,5 +29,10 @@ class GoalController extends Controller
                                     ]);
         }
         return redirect()->route('goals.index');
+
+        // if($request->image !== null)
+        // {
+        //     $data['image'] = $this->fileManager->handle('image', 'courses');
+        // }
     }
 }
