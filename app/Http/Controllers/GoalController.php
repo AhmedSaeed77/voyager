@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Blog;
-use App\Models\Image;
+use App\Models\Goal;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class GoalController extends Controller
 {
     public function index()
     {
@@ -14,21 +13,21 @@ class BlogController extends Controller
 
     public function create()
     {
-        return view('blogs.create');
+        return view('goals.create');
     }
 
     public function store(Request $request)
     {
-        $blog = Blog::create(['name' => $request->name]);
+        $blog = Goal::create(['name' => $request->name]);
         foreach($request->images as $image)
         {
             $filename = $image->getClientOriginalName();
             $filename = str_replace(" ","",$filename);
-            $image->move('images/blogs', $filename);
+            $image->move('images/goals', $filename);
             $blog->images()->create([
                                         'url' => $filename,
                                     ]);
         }
-        return redirect()->route('blogs.index');
+        return redirect()->route('goals.index');
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\GoalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,4 @@ Auth::routes();
 // });
 
 Route::resource('blogs', BlogController::class);
+Route::resource('goals', GoalController::class);
