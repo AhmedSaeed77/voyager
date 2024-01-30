@@ -31,4 +31,21 @@ class BlogController extends Controller
         }
         return redirect()->route('blogs.index');
     }
+
+    public function getimages($id)
+    {
+        $blog = Blog::find($id);
+        if($blog)
+        {
+            foreach($blog->images as $image)
+            {
+                $image->url = url('images/blogs/'.$image['url']);
+            }
+            return $blog;
+        }
+        else
+        {
+            return "not found";
+        }
+    }
 }

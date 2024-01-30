@@ -45,3 +45,4 @@ Auth::routes();
 
 Route::resource('blogs', BlogController::class);
 Route::resource('goals', GoalController::class);
+Route::get('getimages/{id}', [BlogController::class,'getimages']);
