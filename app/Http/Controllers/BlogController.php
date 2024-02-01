@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use App\Notifications\MyNotification;
+use Auth;
 
 class BlogController extends Controller
 {
@@ -47,5 +49,11 @@ class BlogController extends Controller
         {
             return "not found";
         }
+    }
+
+    public function notification()
+    {
+        Auth::user()->notify(new MyNotification);
+        return auth()->user()->unreadNotifications;
     }
 }

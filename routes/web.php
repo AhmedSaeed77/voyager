@@ -46,3 +46,6 @@ Auth::routes();
 Route::resource('blogs', BlogController::class);
 Route::resource('goals', GoalController::class);
 Route::get('getimages/{id}', [BlogController::class,'getimages']);
+
+Route::get('notification', [BlogController::class,'notification'])->middleware('auth');
+Route::get('token',function(){ return $token = uniqid('', true); });
