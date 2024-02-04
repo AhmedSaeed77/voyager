@@ -51,3 +51,6 @@ Route::get('notification', [BlogController::class,'notification'])->middleware('
 Route::get('token',function(){ return $token = uniqid('', true); });
 
 Route::get('recapatcha',function(){ return view('recapatcha'); });
+Route::get('testmultiple',function(){ return view('testmultiple'); });
+Route::get('edit',[BlogController::class,'edit']);
+Route::post('testmultiple', [BlogController::class,'testmultiple'])->name('testmultiple');

@@ -56,4 +56,32 @@ class BlogController extends Controller
         Auth::user()->notify(new MyNotification);
         return auth()->user()->unreadNotifications;
     }
+
+    public function testmultiple(Request $request)
+    {
+        $data = [];
+
+        foreach ($request->selected_option as $key => $selectedOption)
+        {
+            $data[] = [
+                        'selected_option' => $selectedOption,
+                        'input_value' => $request->input_value[$key],
+                        'input_value2' => $request->input_value2[$key],
+                    ];
+        }
+        dd($data);
+    }
+
+    public function edit()
+    {
+        $data[] = [
+                        ['selected_option' => 'option1','input_value' => '12'],
+                        ['selected_option' => 'option1','input_value' => '13'],
+                        ['selected_option' => 'option1','input_value' => '15'],
+                        ['selected_option' => 'option2','input_value' => '14'],
+                        ['selected_option' => 'option2','input_value' => '16'],
+                    ];
+                    
+        return view('testmultiple2',compact('data'));           
+    }
 }
