@@ -54,3 +54,5 @@ Route::get('recapatcha',function(){ return view('recapatcha'); });
 Route::get('testmultiple',function(){ return view('testmultiple'); });
 Route::get('edit',[BlogController::class,'edit']);
 Route::post('testmultiple', [BlogController::class,'testmultiple'])->name('testmultiple');
+
+Route::get('message', [BlogController::class,'message'])->name('message');

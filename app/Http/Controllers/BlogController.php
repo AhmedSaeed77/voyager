@@ -84,4 +84,10 @@ class BlogController extends Controller
                     
         return view('testmultiple2',compact('data'));           
     }
+
+    public function message()
+    {
+        return redirect()->back()->with(['success' => __('dashboard.Incorrect email or password')]);
+        return redirect()->back()->with(['error' => __('dashboard.Incorrect email or password')]);
+    }
 }
