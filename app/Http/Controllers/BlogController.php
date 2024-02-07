@@ -90,4 +90,22 @@ class BlogController extends Controller
         return redirect()->back()->with(['success' => __('dashboard.Incorrect email or password')]);
         return redirect()->back()->with(['error' => __('dashboard.Incorrect email or password')]);
     }
+
+    public function showajax(Request $request)
+    {
+        $offset = $request->input('offset', 0);
+        $blogs = Blog::skip($offset)->take(3)->get();
+        return response()->json($blogs);
+    }
+
+    public function getpageajax()
+    {
+        $blogs = Blog::take(3)->get();
+        return view('showajax',compact('blogs'));
+    }
+
+    public function loginajax(Request $request)
+    {
+        return response()->json(['success' => true, 'message' => 'Login successful']);
+    }
 }

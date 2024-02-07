@@ -18,7 +18,7 @@ use App\Http\Controllers\GoalController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
 // Route::get('/ttt', function () {
 //     return DB::connection('mysql')->table('users')->get();
@@ -56,3 +56,14 @@ Route::get('edit',[BlogController::class,'edit']);
 Route::post('testmultiple', [BlogController::class,'testmultiple'])->name('testmultiple');
 
 Route::get('message', [BlogController::class,'message'])->name('message');
+
+Route::get('getpageajax', [BlogController::class,'getpageajax'])->name('getpageajax');
+Route::get('showajax', [BlogController::class,'showajax'])->name('showajax');
+
+
+Route::get('livewire', function(){ return view('livewire'); });
+
+Route::get('article', function(){ return view('livewireArticle'); });
+
+Route::get('loginajax', function(){ return view('loginajax'); });
+Route::post('loginajax', [BlogController::class,'loginajax']);
