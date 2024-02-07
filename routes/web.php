@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PayPalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +69,12 @@ Route::get('article', function(){ return view('livewireArticle'); });
 
 Route::get('loginajax', function(){ return view('loginajax'); });
 Route::post('loginajax', [BlogController::class,'loginajax']);
+
+Route::controller(PDFController::class)->group(function(){
+    Route::get('read-pdf-file', 'index');
+});
+
+Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
+Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
+Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess'])->name('paypal.payment.success');
+Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
