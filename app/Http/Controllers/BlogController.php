@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Image;
+use App\Models\User;
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Notifications\MyNotification;
 use Auth;
+use App\Notifications\BirthdayWish;
 
 class BlogController extends Controller
 {
@@ -107,5 +111,38 @@ class BlogController extends Controller
     public function loginajax(Request $request)
     {
         return response()->json(['success' => true, 'message' => 'Login successful']);
+    }
+
+    public function usernotify(Request $request)
+    {
+        $user = User::find(1);
+  
+        $messages["hi"] = "Hey, Happy Birthday {$user->name}";
+        $messages["wish"] = "On behalf of the entire company I wish you a very happy birthday and send you my best wishes for much happiness in your life.";
+          
+        $user->notify(new BirthdayWish($messages));
+  
+        dd('Done');
+    }
+
+    public function test()
+    {
+        $country = Country::find(1);
+        $cities = $country->cities;
+        return $cities;
+    }
+
+    public function searchcity(Request $request)
+    {
+        if($request->filled('search'))
+        {
+            $cities = City::search($request->search)->get();
+        }
+        else
+        {
+            $cities = City::get();
+        }
+          
+        return view('cities', compact('cities'));
     }
 }

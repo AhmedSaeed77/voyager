@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\ZipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,13 @@ Route::post('loginajax', [BlogController::class,'loginajax']);
 Route::controller(PDFController::class)->group(function(){
     Route::get('read-pdf-file', 'index');
 });
+
+Route::get('usernotify', [BlogController::class, 'usernotify']);
+Route::get('testrelation', [BlogController::class, 'test']);
+
+Route::get('searchcity', [BlogController::class, 'searchcity']);
+
+Route::get('download-zip', ZipController::class);
 
 Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
 Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
