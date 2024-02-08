@@ -7,6 +7,7 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ZipController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,10 +76,13 @@ Route::controller(PDFController::class)->group(function(){
     Route::get('read-pdf-file', 'index');
 });
 
+Route::get('facebook', function(){ return view('facebook'); });
+
 Route::get('usernotify', [BlogController::class, 'usernotify']);
 Route::get('testrelation', [BlogController::class, 'test']);
 
 Route::get('searchcity', [BlogController::class, 'searchcity']);
+Route::get('invoice-pdf', [InvoiceController::class, 'index']);
 
 Route::get('download-zip', ZipController::class);
 
