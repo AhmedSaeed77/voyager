@@ -24,4 +24,4 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
 
-Route::post('createCoutry', [BlogController::class, 'createCoutry']);
+Route::get('createCoutry', [BlogController::class, 'createCoutry']);

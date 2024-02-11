@@ -146,8 +146,13 @@ class BlogController extends Controller
         return view('cities', compact('cities'));
     }
 
-    public function createCoutry(Request $request)
+    public function createCoutry()
     {
-        Country::create(['name' => $request->name]);
+        // $parentCategory = Country::create(['name' => 'Parent Category']);
+        // $childCategory = $parentCategory->children()->create(['name' => 'Child Category']);
+        // return 'done';
+        $parent = Country::find(6);
+        $children = $parent->children;
+        return $children;
     }
 }

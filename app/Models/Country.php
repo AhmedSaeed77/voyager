@@ -43,4 +43,14 @@ class Country extends Model
             return $lastMembershipNumber + 1;
         }
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Country::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Country::class, 'parent_id');
+    }
 }
