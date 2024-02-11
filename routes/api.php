@@ -25,3 +25,5 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
 
 Route::get('createCoutry', [BlogController::class, 'createCoutry']);
+
+Route::post('validation', [BlogController::class, 'validation']);

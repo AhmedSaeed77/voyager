@@ -7,6 +7,7 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ZipController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoiceController;
 
 /*
@@ -103,3 +104,10 @@ Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
 Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
 Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess'])->name('paypal.payment.success');
 Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+
+
+Route::get('dropzone', function(){ return view('dropzone'); });
+Route::post('/dropzone/upload', [InvoiceController::class, 'upload'])->name('dropzone.upload');
+
+Route::get('profile', [ProfileController::class, 'store']);
+

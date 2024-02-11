@@ -45,6 +45,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject,MustVerifyEmai
         'password' => 'hashed',
     ];
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

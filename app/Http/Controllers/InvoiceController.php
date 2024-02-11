@@ -29,4 +29,14 @@ class InvoiceController extends Controller
         $pdf = Pdf::loadView('invoice', ['data' => $data]);
         return $pdf->download();
     }
+
+    public function upload(Request $request)
+    {
+        $file = $request->file('file');
+        return $request;
+        $fileName = $file->getClientOriginalName();
+        return $fileName;
+
+        return response()->json(['success' => true]);
+    }
 }

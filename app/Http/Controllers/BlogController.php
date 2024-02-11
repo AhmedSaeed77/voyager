@@ -155,4 +155,19 @@ class BlogController extends Controller
         // $children = $parent->children;
         // return $children;
     }
+
+    public function validation(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email',
+        ];
+    
+        $customMessages = [
+            'email.required' => __('validation.required'),
+            'email.email' => __('validation.email'),
+        ];
+    
+        $validatedData = $request->validate($rules, $customMessages);
+        return $request->email;
+    }
 }
