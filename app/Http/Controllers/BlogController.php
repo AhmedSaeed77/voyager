@@ -148,11 +148,11 @@ class BlogController extends Controller
 
     public function createCoutry()
     {
-        // $parentCategory = Country::create(['name' => 'Parent Category']);
-        // $childCategory = $parentCategory->children()->create(['name' => 'Child Category']);
-        // return 'done';
-        $parent = Country::find(6);
-        $children = $parent->children;
-        return $children;
+        $parentCategory = Country::find(7);
+        $childCategory = $parentCategory->children()->create(['name' => 'Child Category 7']);
+        return 'done';
+        // $parent = Country::find(6);
+        // $children = $parent->children;
+        // return $children;
     }
 }
