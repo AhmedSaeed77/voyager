@@ -24,6 +24,19 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
+Route::get('slug2', function () {
+    $delimiter = '-';
+    $text2 = 'Cairo Egypt';
+    $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $text2))))), $delimiter));
+    return $slug;
+    $text = 'المنتجات الغذائيه (4 كيلو)';
+    $delimiter = '-';
+    $cleanedText = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
+    $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, $cleanedText)), $delimiter));
+    return $slug;
+});
+
+
 // Route::get('/ttt', function () {
 //     return DB::connection('mysql')->table('users')->get();
 //     return $usersSecondDB = DB::connection('second_mysql')->table('users')->get();

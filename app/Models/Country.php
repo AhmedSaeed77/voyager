@@ -9,6 +9,9 @@ class Country extends Model
 {
     use HasFactory;
 
+    protected $table = 'countries';
+    protected $fillable = ['name','membership_number'];
+
     public function states()
     {
         return $this->hasMany(State::class);
@@ -17,5 +20,27 @@ class Country extends Model
     public function cities()
     {
         return $this->hasManyThrough(City::class, State::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($user)
+        {
+            $user->membership_number = self::generateMembershipNumber();
+        });
+    }
+
+    protected static function generateMembershipNumber()
+    {
+        $lastMembershipNumber = self::max('membership_number');
+        if ($lastMembershipNumber === null)
+        {
+            return 1000;
+        }
+        else
+        {
+            return $lastMembershipNumber + 1;
+        }
     }
 }

@@ -145,4 +145,9 @@ class BlogController extends Controller
           
         return view('cities', compact('cities'));
     }
+
+    public function createCoutry(Request $request)
+    {
+        Country::create(['name' => $request->name]);
+    }
 }
