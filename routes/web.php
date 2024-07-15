@@ -106,8 +106,14 @@ Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess']
 Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
 
 
-Route::get('dropzone', function(){ return view('dropzone'); });
+Route::get('dropzone', function(){
+    return view('dropzone');
+ });
+
 Route::post('/dropzone/upload', [InvoiceController::class, 'upload'])->name('dropzone.upload');
 
 Route::get('profile', [ProfileController::class, 'store']);
+
+Route::get('/deposit', [App\Http\Controllers\DepositController::class,'deposit'])->name('deposit');
+Route::get('/mark-as-read', [App\Http\Controllers\DepositController::class,'markAsRead'])->name('mark-as-read');
 
