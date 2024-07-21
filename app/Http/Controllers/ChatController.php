@@ -183,8 +183,8 @@ class ChatController extends Controller
                             ]);
 
         $room = ChatRoom::find($room_id);
-        if (Gate::allows('access-room', $room))
-        {
+        // if (Gate::allows('access-room', $room))
+        // {
             DB::beginTransaction();
             try
             {
@@ -221,11 +221,11 @@ class ChatController extends Controller
                 Log::warning('send chat error: ' . $e);
                 return $this->responseFail(message: __('messages.Something went wrong'));
             }
-       }
-       else
-       {
-           return $this->responseCustom(401, __('messages.You are not allowed to access this resource'));
-       }
+    //    }
+    //    else
+    //    {
+    //        return $this->responseCustom(401, __('messages.You are not allowed to access this resource'));
+    //    }
     }
 
 
