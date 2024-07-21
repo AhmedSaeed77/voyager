@@ -176,7 +176,7 @@ class ChatController extends Controller
     public function send(Request $request, $room_id)
     {
         $request->validate([
-                                'first_user' => ['required'],
+                                'user_id' => ['required'],
                                 // 'second_user' => ['required'],
                                 'type' => ['required', Rule::in(['TEXT', 'IMAGE', 'AUDIO', 'FILE'])],
                                 ...$this->file[$request->type],
@@ -194,7 +194,7 @@ class ChatController extends Controller
             }
             $message = ChatRoomMessage::create([
                                                     'chat_room_id' => $room_id,
-                                                    'user_id' => $request->first_user,
+                                                    'user_id' => $request->user_id,
                                                     'content' => $data['content'],
                                                     'type' => $data['type']
                                                 ]);
@@ -202,7 +202,7 @@ class ChatController extends Controller
             $room->update(['updated_at' => Carbon::now()]);
 
             $chatroommemeber = ChatRoomMember::where('chat_room_id', $room_id)
-                                                ->where('user_id', '!=', $request->first_user)
+                                                ->where('user_id', '!=', $request->user_id)
                                                 ->increment('unread_count');
 
             broadcast(new PushChatMessageEvent($message))->toOthers();
