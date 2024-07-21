@@ -56,7 +56,7 @@ class ChatController extends Controller
     {
         return ChatRoom::where('order_id', $order_id)
             ->whereHas('members', function ($query) {
-                $query->where('user_id', auth('api-app')?->id());
+                $query->where('user_id', $user_id);
             })
             ->whereHas('members', function ($query) use ($user_id) {
                 $query->where('user_id', $user_id);
