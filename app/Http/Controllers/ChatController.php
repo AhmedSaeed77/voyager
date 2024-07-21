@@ -176,56 +176,46 @@ class ChatController extends Controller
     public function send(Request $request, $room_id)
     {
         $request->validate([
-                                'first_user' => ['required'],
+                                'user_id' => ['required'],
                                 // 'second_user' => ['required'],
                                 'type' => ['required', Rule::in(['TEXT', 'IMAGE', 'AUDIO', 'FILE'])],
                                 ...$this->file[$request->type],
                             ]);
 
         $room = ChatRoom::find($room_id);
-        // if (Gate::allows('access-room', $room))
-        // {
-            DB::beginTransaction();
-            try
+        DB::beginTransaction();
+        try
+        {
+            $data = $request->input();
+            if ($request->type != 'TEXT')
             {
-                $data = $request->input();
-                if ($request->type != 'TEXT')
-                {
-                    $data['content'] = $this->uploadNotTextMessage($request->file);
-                    unset($data['file']);
-                }
-                $message = ChatRoomMessage::create([
-                                                        'chat_room_id' => $room_id,
-                                                        'user_id' => $request->first_user,
-                                                        'content' => $data['content'],
-                                                        'type' => $data['type']
-                                                    ]);
-
-                $room->update(['updated_at' => Carbon::now()]);
-
-                $chatroommemeber = ChatRoomMember::where('chat_room_id', $room_id)
-                                                    ->where('user_id', '!=', $request->first_user)
-                                                    ->increment('unread_count');
-
-                broadcast(new PushChatMessageEvent($message))->toOthers();
-
-                //$this->fireRoomEvent($room);
-
-                DB::commit();
-                $data = new ChatMessageResource($message);
-                return $data;
+                $data['content'] = $this->uploadNotTextMessage($request->file);
+                unset($data['file']);
             }
-            catch (Exception $e)
-            {
-                DB::rollBack();
-                Log::warning('send chat error: ' . $e);
-                return $this->responseFail(message: __('messages.Something went wrong'));
-            }
-    //    }
-    //    else
-    //    {
-    //        return $this->responseCustom(401, __('messages.You are not allowed to access this resource'));
-    //    }
+            $message = ChatRoomMessage::create([
+                                                    'chat_room_id' => $room_id,
+                                                    'user_id' => $request->user_id,
+                                                    'content' => $data['content'],
+                                                    'type' => $data['type']
+                                                ]);
+
+            $room->update(['updated_at' => Carbon::now()]);
+
+            $chatroommemeber = ChatRoomMember::where('chat_room_id', $room_id)
+                                                ->where('user_id', '!=', $request->user_id)
+                                                ->increment('unread_count');
+
+            broadcast(new PushChatMessageEvent($message))->toOthers();
+            DB::commit();
+            $data = new ChatMessageResource($message);
+            return $data;
+        }
+        catch (Exception $e)
+        {
+            DB::rollBack();
+            Log::warning('send chat error: ' . $e);
+            return $this->responseFail(message: __('messages.Something went wrong'));
+        }
     }
 
 
