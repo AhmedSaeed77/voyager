@@ -47,7 +47,7 @@ class ChatController extends Controller
         private readonly FileManagerService $fileManagerService,
     )
     {
-        $this->middleware('auth:api-app');
+        // $this->middleware('auth:api-app');
     }
 
     ///////////////////////////////////////////////////////////////////////
