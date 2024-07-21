@@ -63,11 +63,11 @@ class ChatController extends Controller
             })->with('messages');
     }
 
-    public function provideModel($user_id, $order_id, $status = 'OPEN')
+    public function provideModel($first_user,$second_user, $order_id, $status = 'OPEN')
     {
-        if ($this->roomProvider($user_id, $order_id)->exists())
+        if ($this->roomProvider($first_user, $order_id)->exists())
         {
-            return $this->roomProvider($user_id, $order_id)->first();
+            return $this->roomProvider($first_user, $order_id)->first();
         }
         else
         {
@@ -75,12 +75,12 @@ class ChatController extends Controller
             $room->members()->insert([
                                         [
                                             'chat_room_id' => $room->id,
-                                            'user_id' => $user_id,
+                                            'user_id' => $first_user,
                                             'unread_count' => 0
                                         ],
                                         [
                                             'chat_room_id' => $room->id,
-                                            'user_id' => auth('api-app')->id(),
+                                            'user_id' => $second_user,
                                             'unread_count' => 0
                                         ],
                                     ]);
@@ -107,13 +107,22 @@ class ChatController extends Controller
     public function provide(Request $request)
     {
         $request->validate([
-                                'user_id' => ['required', Rule::exists('users', 'id')],
-                                'order_id' => ['required', Rule::exists('orders', 'id')],
-                                'status' => ['required', 'in:OPEN,CLOSE'],
+                                // 'user_id' => ['required', Rule::exists('users', 'id')],
+                                // 'order_id' => ['required', Rule::exists('orders', 'id')],
+                                // 'status' => ['required', 'in:OPEN,CLOSE'],
+                                'first_user' => ['required'],
+                                'second_user' => ['required'],
                             ]);
-        $chats = $this->provideModel($request->user_id, $request->order_id);
+        $order_id = 1;
+        $chats = $this->provideModel($request->first_user , $request->second_user , $order_id);
         $chats_data = new ChatProvideResource($chats);
-        return $chats_data;
+
+        $messages_data = ChatMessageResource::collection($this->getRoomMessages($chats->id));
+        $data = [
+                    'chats' => $chats_data,
+                    'messages' => $messages_data,
+                ];
+        return $data;
     }
 
     public function getRooms()
@@ -167,6 +176,8 @@ class ChatController extends Controller
     public function send(Request $request, $room_id)
     {
         $request->validate([
+                                'first_user' => ['required'],
+                                // 'second_user' => ['required'],
                                 'type' => ['required', Rule::in(['TEXT', 'IMAGE', 'AUDIO', 'FILE'])],
                                 ...$this->file[$request->type],
                             ]);
@@ -185,7 +196,7 @@ class ChatController extends Controller
                 }
                 $message = ChatRoomMessage::create([
                                                         'chat_room_id' => $room_id,
-                                                        'user_id' => auth('api-app')->id(),
+                                                        'user_id' => $request->first_user,
                                                         'content' => $data['content'],
                                                         'type' => $data['type']
                                                     ]);
@@ -193,7 +204,7 @@ class ChatController extends Controller
                 $room->update(['updated_at' => Carbon::now()]);
 
                 $chatroommemeber = ChatRoomMember::where('chat_room_id', $room_id)
-                                                    ->where('user_id', '!=', auth('api-app')->id())
+                                                    ->where('user_id', '!=', $request->first_user)
                                                     ->increment('unread_count');
 
                 broadcast(new PushChatMessageEvent($message))->toOthers();
