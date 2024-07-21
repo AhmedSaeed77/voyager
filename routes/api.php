@@ -48,9 +48,13 @@ Route::group(['prefix' => 'chats', 'controller' => ChatController::class], funct
 });
 
 
-// Route::post('chats/provide', [ChatController::class,'provide']);
+Route::post('chats/provide', [ChatController::class,'provide']);
+Route::post('chats/rooms/{rooms:id}/send', [ChatController::class,'send']);
+
+
+
 // Route::get('chats/rooms', [ChatController::class,'getRooms']);
 // Route::get('chats/rooms/{rooms:id}', [ChatController::class,'getMessages']);
 // Route::post('chats/rooms/{rooms:id}/load', [ChatController::class,'loadMoreMessages']);
-// Route::post('chats/rooms/{rooms:id}/send', [ChatController::class,'send']);
+
 // Route::put('chats/rooms/{rooms:id}/read', [ChatController::class,'read']);
