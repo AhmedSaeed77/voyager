@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\ZipController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +23,20 @@ use App\Http\Controllers\GoalController;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('/');
+
+Route::get('slug2', function () {
+    $delimiter = '-';
+    $text2 = 'Cairo Egypt';
+    $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $text2))))), $delimiter));
+    return $slug;
+    $text = 'المنتجات الغذائيه (4 كيلو)';
+    $delimiter = '-';
+    $cleanedText = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
+    $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, $cleanedText)), $delimiter));
+    return $slug;
 });
+
 
 // Route::get('/ttt', function () {
 //     return DB::connection('mysql')->table('users')->get();
@@ -49,3 +67,53 @@ Route::get('getimages/{id}', [BlogController::class,'getimages']);
 
 Route::get('notification', [BlogController::class,'notification'])->middleware('auth');
 Route::get('token',function(){ return $token = uniqid('', true); });
+
+Route::get('recapatcha',function(){ return view('recapatcha'); });
+Route::get('testmultiple',function(){ return view('testmultiple'); });
+Route::get('edit',[BlogController::class,'edit']);
+Route::post('testmultiple', [BlogController::class,'testmultiple'])->name('testmultiple');
+
+Route::get('message', [BlogController::class,'message'])->name('message');
+
+Route::get('getpageajax', [BlogController::class,'getpageajax'])->name('getpageajax');
+Route::get('showajax', [BlogController::class,'showajax'])->name('showajax');
+
+
+Route::get('livewire', function(){ return view('livewire'); });
+
+Route::get('article', function(){ return view('livewireArticle'); });
+
+Route::get('loginajax', function(){ return view('loginajax'); });
+Route::post('loginajax', [BlogController::class,'loginajax']);
+
+Route::controller(PDFController::class)->group(function(){
+    Route::get('read-pdf-file', 'index');
+});
+
+Route::get('facebook', function(){ return view('facebook'); });
+
+Route::get('usernotify', [BlogController::class, 'usernotify']);
+Route::get('testrelation', [BlogController::class, 'test']);
+
+Route::get('searchcity', [BlogController::class, 'searchcity']);
+Route::get('invoice-pdf', [InvoiceController::class, 'index']);
+
+Route::get('download-zip', ZipController::class);
+
+Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
+Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
+Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess'])->name('paypal.payment.success');
+Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+
+
+Route::get('dropzone', function(){
+    return view('dropzone');
+ });
+
+Route::post('/dropzone/upload', [InvoiceController::class, 'upload'])->name('dropzone.upload');
+
+Route::get('profile', [ProfileController::class, 'store']);
+
+Route::get('/deposit', [App\Http\Controllers\DepositController::class,'deposit'])->name('deposit');
+Route::get('/mark-as-read', [App\Http\Controllers\DepositController::class,'markAsRead'])->name('mark-as-read');
+

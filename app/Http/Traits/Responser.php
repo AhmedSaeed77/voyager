@@ -21,7 +21,7 @@ trait Responser
         ], $status);
     }
 
-    public function responseCustom($status, $message, $data) {
+    public function responseCustom($status, $message, $data = []) {
         return response()->json([
             'status' => $status,
             'message' => $message,
