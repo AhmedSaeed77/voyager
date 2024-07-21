@@ -29,12 +29,12 @@ class ChatRoomMessage extends Model
         });
     }
 
-    // public function contentValue(): Attribute
-    // {
-    //     return Attribute::get(function () {
-    //         if ($this->type === 'IMAGE' || $this->type === 'AUDIO' || $this->type === 'FILE' && $this->content != null)
-    //             return url($this->content);
-    //         return $this->content;
-    //     });
-    // }
+    public function contentValue(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->type === 'IMAGE' || $this->type === 'AUDIO' || $this->type === 'FILE' && $this->content != null)
+                return url($this->content);
+            return $this->content;
+        });
+    }
 }
