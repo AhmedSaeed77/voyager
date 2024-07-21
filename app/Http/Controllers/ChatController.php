@@ -55,9 +55,9 @@ class ChatController extends Controller
     private function roomProvider($user_id, $order_id)
     {
         return ChatRoom::where('order_id', $order_id)
-            ->whereHas('members', function ($query) {
-                $query->where('user_id', $user_id);
-            })
+            // ->whereHas('members', function ($query) {
+            //     $query->where('user_id', $user_id);
+            // })
             ->whereHas('members', function ($query) use ($user_id) {
                 $query->where('user_id', $user_id);
             })->with('messages');
