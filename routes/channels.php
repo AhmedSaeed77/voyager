@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('chat.room.{room_id}', function ($user, $room_id) {
+    return $user->chatRooms?->contains('chat_room_id', $room_id);
+});
+
+Broadcast::channel('private.chatroom.status.change.{room_id}', function ($user, $room_id) {
+    return $user->chatRooms?->contains('chat_room_id', $room_id);
+});
+
+Broadcast::channel('private.buttons.changed.{room_id}', function ($user, $room_id) {
+    return $user->chatRooms?->contains('chat_room_id', $room_id);
+});
