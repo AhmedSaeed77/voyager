@@ -23,6 +23,9 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject,MustVerifyEmai
         'name',
         'email',
         'password',
+        'provider',
+        'provider_id',
+        'avatar',
     ];
 
     /**
@@ -44,6 +47,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject,MustVerifyEmai
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getAvatarAttribute($value)
+    {
+        return url($value);
+    }
 
     public function profile()
     {
