@@ -9,6 +9,7 @@ use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ZipController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,3 +118,10 @@ Route::get('profile', [ProfileController::class, 'store']);
 Route::get('/deposit', [App\Http\Controllers\DepositController::class,'deposit'])->name('deposit');
 Route::get('/mark-as-read', [App\Http\Controllers\DepositController::class,'markAsRead'])->name('mark-as-read');
 
+
+Route::get('/social', function () {
+    return view('social');
+})->name('social');
+
+Route::get('/login/{provider}', [SocialController::class,'redirect']);
+Route::get('/login/{provider}/callback', [SocialController::class,'callback']);

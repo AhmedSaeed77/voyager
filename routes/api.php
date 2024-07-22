@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,5 @@ Route::post('chats/rooms/{rooms:id}/send', [ChatController::class,'send']);
 // Route::post('chats/rooms/{rooms:id}/load', [ChatController::class,'loadMoreMessages']);
 
 // Route::put('chats/rooms/{rooms:id}/read', [ChatController::class,'read']);
+
+Route::get('auth/login/{provider}/callback', [SocialController::class,'callback']);
