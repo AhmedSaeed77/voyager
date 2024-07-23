@@ -33,7 +33,8 @@ class PushChatMessageEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('chat.room.'.$this->data->chat_room_id),
+            // new PrivateChannel('chat.room.'.$this->data->chat_room_id),
+            new Channel('chat.room.'.$this->data->chat_room_id),
         ];
     }
 }
