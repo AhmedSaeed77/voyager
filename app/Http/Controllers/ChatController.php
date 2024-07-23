@@ -37,9 +37,9 @@ class ChatController extends Controller
                                     [
                                         'file' => ['required', 'mimes:pdf,doc,docx,ppt,pptx', 'max:10000'],
                                     ],
-                        'RECORD' =>
+                        'AUDIO' =>
                                     [
-                                        'file' => ['required', 'mimetypes:audio/mpeg,audio/wav,audio/ogg,audio/mp4,audio/flac', 'max:10000'],
+                                        'file' => 'required|mimes:mp3,m4a,mp4a,mp4,webm|max:20480',
                                     ],
                     ];
 
