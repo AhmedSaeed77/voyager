@@ -39,7 +39,7 @@ class ChatController extends Controller
                                     ],
                         'RECORD' =>
                                     [
-                                        'file' => ['required', 'mimes:mp3', 'max:10000'],
+                                        'file' => ['required', 'mimetypes:audio/mpeg,audio/wav,audio/ogg,audio/mp4,audio/flac', 'max:10000'],
                                     ],
                     ];
 
