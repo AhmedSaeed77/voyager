@@ -17,7 +17,7 @@ class ChatMessageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sender' => App\Models\User::find($this->user_id),
+            'sender' => $this->user,
             'content' => $this->contentValue,
             'type' => $this->type,
             'sent_at' => Carbon::parse($this->created_at)->format('d M Y h:ia')
