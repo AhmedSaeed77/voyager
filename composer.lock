@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "708bec25e96dc1d4a141bd09c028f70b",
+    "content-hash": "a2fb9beceb7df7954090487458fa8eee",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -5522,6 +5522,44 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/8.5.0"
             },
             "time": "2024-02-01T00:40:08+00:00"
+        },
+        {
+            "name": "samir-hussein/paymob",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samir-hussein/paymob.git",
+                "reference": "5e7b59aba9fa810076925da9a17e02373ae494a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samir-hussein/paymob/zipball/5e7b59aba9fa810076925da9a17e02373ae494a4",
+                "reference": "5e7b59aba9fa810076925da9a17e02373ae494a4",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayMob\\": "paymob/laravel",
+                    "Paymob\\": "paymob"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samir Ebrahim Hussein",
+                    "email": "samirhussein274@gmail.com"
+                }
+            ],
+            "description": "paymob payment gateway",
+            "support": {
+                "issues": "https://github.com/samir-hussein/paymob/issues",
+                "source": "https://github.com/samir-hussein/paymob/tree/2.0"
+            },
+            "time": "2023-01-24T23:40:17+00:00"
         },
         {
             "name": "spatie/pdf-to-text",

@@ -16,6 +16,7 @@
         "laravel/ui": "^4.4",
         "livewire/livewire": "^3.4",
         "pusher/pusher-php-server": "^7.2",
+        "samir-hussein/paymob": "^2.0",
         "spatie/pdf-to-text": "^1.52",
         "srmklive/paypal": "^3.0",
         "stevebauman/location": "^7.1",
