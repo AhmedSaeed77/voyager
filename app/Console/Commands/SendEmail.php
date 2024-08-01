@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 use App\Jobs\SendEmailJob;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class SendEmail extends Command
