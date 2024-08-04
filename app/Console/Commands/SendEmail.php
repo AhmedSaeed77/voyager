@@ -7,23 +7,10 @@ use Illuminate\Console\Command;
 
 class SendEmail extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:send-email';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Command description';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         $users = User::all();
@@ -31,9 +18,11 @@ class SendEmail extends Command
             'title' => 'Hello!',
             'body' => 'This is a notification email.'
         ];
-        foreach ($users as $user)
-        {
-            dispatch(new SendEmailJob($user,$details));
-        }
+        $chunkSize = 50;
+
+        $users->chunk($chunkSize)->each(function ($chunk) use ($details) {
+            \Log::info("Sending email to chunk of users.");
+            dispatch(new SendEmailJob($chunk->toArray(),$details));
+        });
     }
 }
