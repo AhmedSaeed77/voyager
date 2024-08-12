@@ -53,7 +53,7 @@ class ZoomController extends Controller
                                     'topic' => $request->title,
                                     'type' => 2, // 2 for scheduled meeting
                                     'start_time' => Carbon::parse($request->start_date_time)->toIso8601String(),
-                                    'duration' => $request->uration_in_minute,
+                                    'duration' => $request->duration_in_minute,
                                 ]);
 
             return $response->json();
