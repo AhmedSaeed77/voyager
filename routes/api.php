@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\ZoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,7 @@ Route::group(['prefix' => 'chats', 'controller' => ChatController::class], funct
 Route::post('chats/provide', [ChatController::class,'provide']);
 Route::post('chats/rooms/{rooms:id}/send', [ChatController::class,'send']);
 
-
+Route::post('create-meeting', [ZoomController::class,'store']);
 
 // Route::get('chats/rooms', [ChatController::class,'getRooms']);
 // Route::get('chats/rooms/{rooms:id}', [ChatController::class,'getMessages']);
