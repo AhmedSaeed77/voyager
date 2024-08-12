@@ -12,6 +12,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\PayMobController ;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\SmsController;
 
 /*
@@ -137,3 +138,7 @@ Route::get('checkout/response',[PayMobController::class,'responseStatus']);
 Route::get('checkout',[PayMobController::class,'checkout']);
 
 Route::get('/send-emails', [SmsController::class, 'sendEmails']);
+
+Route::get('/upload', [VideoController::class, 'create'])->name('videos.create');
+Route::post('/upload', [VideoController::class, 'store'])->name('videos.store');
+Route::get('/show', [VideoController::class, 'show'])->name('videos.show');
